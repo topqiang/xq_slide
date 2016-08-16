@@ -161,7 +161,7 @@
 			});
 		}
 		if(defaults.openmb){
-			openmb(self,defaults.type);
+			openmb(self.find(".xq_slide_in"),defaults.type);
 		}
 	}
 })(jQuery);
