@@ -13,6 +13,8 @@
 	list-style: none;
 	height: 100%;
 	transition: transform 1s ease;
+	position: relative;
+	/*left: -300px;*/
 }
 .xq_slide_in li{
 	height: 100%;

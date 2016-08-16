@@ -17,8 +17,8 @@
 		time=setInterval(function(){
 			curindex++;
 			if(curindex>=total)curindex=0;
-			if(type=="h")xq_slide_in.css({"transform":"translateX(-"+liwidth*curindex+"px)"});
-			if(type=="v")xq_slide_in.css({"transform":"translateY(-"+height*curindex+"px)"});
+			if(type=="h")xq_slide_in.css({"transform":"translateX("+(-liwidth*curindex)+"px)"});
+			if(type=="v")xq_slide_in.css({"transform":"translateY("+(-height*curindex)+"px)"});
 			if(type=="o")xq_slide_in.find("li").eq(curindex).css({"opacity":"1"}).siblings().css({"opacity":"0"});
 			ifbar();
 		},speed);
@@ -63,6 +63,8 @@
 			var e=event || window.event;
 			startX=e.touches[0].clientX;
 			startY=e.touches[0].clientY;
+			e.preventDefault();
+			e.stopPropagation();
 		});
 		$self[0].addEventListener("touchmove",function(event){
 			var e=event || window.event;
@@ -72,33 +74,43 @@
 			czY=startY-curY;
 			switch (type){
 				case "h":
-					xq_slide_in.css({"transition":"none","transform":"translateX(-"+(liwidth*curindex+czX)+"px)"});
+					xq_slide_in.css({"transition":"transform 0s ease","transform":"translateX(-"+(liwidth*curindex+czX)+"px)"});
 					break;
 				case "v":
-					xq_slide_in.css({"transition":"none","transform":"translateY(-"+(height*curindex+czY)+"px)"});
+					xq_slide_in.css({"transition":"transform 0s ease","transform":"translateY(-"+(height*curindex+czY)+"px)"});
 					break;
 			}
+			e.preventDefault();
+			e.stopPropagation();
 		})
 		$self[0].addEventListener("touchend",function(event){
 			switch (type){
 				case "v":
-					if(czY > 0 && curindex<(total-1)){
+					if(czY > 0){
 						curindex++;
-					}else if(czY < 0 && curindex>=1){
+					}else if(czY < 0){
 						curindex--;
 					}
 					break;
 				default:
-					if(czX > 0 && curindex<(total-1)){
+					if(czX > 0){
 						curindex++;
-					}else if(czX < 0 && curindex>=1){
+					}else if(czX < 0){
 						curindex--;
 					}
 				break;
 			}
+			if(curindex>=total){
+				curindex=0;
+			}
+			if(curindex<0){
+				curindex=total-1;
+			}
 			xq_slide_in.css({"transition":"transform 1s ease"});
 			placego(type);
 			slide(type);
+			event.preventDefault();
+			event.stopPropagation();
 		});
 	}
 	$.fn.xq_slide=function(options){
