@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 		<title></title>
 		<link rel="stylesheet" href="css/xq_slide.css"/>
 	</head>
 	<body>
-		<div style="width: 500px;height: 300px;margin: 0 auto;">
+		<div style="width: 500px;height: 300px;margin: 0 auto;max-width: 100%;">
 			<div class="xq_slide_out">
 				<ul class="xq_slide_in">
 					<li>
@@ -39,7 +40,7 @@
 	<script type="text/javascript" src="js/xq_slide.js"></script>
 	<script type="text/javascript">
 		$(".xq_slide_out").xq_slide({
-			type:"o",//轮播方式  h水平轮播；v垂直轮播；o透明切换
+			type:"h",//轮播方式  h水平轮播；v垂直轮播；o透明切换
 			vatical:false,//图片描述性文本 true 显示 false不显示
 			choseBtn:true,//是否显示上下切换按钮
 			speed:2000,//动画间隔的时间，以毫秒为单位。
