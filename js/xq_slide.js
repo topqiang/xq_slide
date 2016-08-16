@@ -7,6 +7,7 @@
 	var height;
 	var speed;
 	var showbar=false;
+	var liwidth;
 	function ifbar(){
 		if(showbar){
 			$(".xq_slide_bar span").eq(curindex).addClass("cur").siblings(".cur").removeClass("cur");
@@ -16,7 +17,7 @@
 		time=setInterval(function(){
 			curindex++;
 			if(curindex>=total)curindex=0;
-			if(type=="h")xq_slide_in.css({"transform":"translateX(-"+100/total*curindex+"%)"});
+			if(type=="h")xq_slide_in.css({"transform":"translateX(-"+liwidth*curindex+"px)"});
 			if(type=="v")xq_slide_in.css({"transform":"translateY(-"+height*curindex+"px)"});
 			if(type=="o")xq_slide_in.find("li").eq(curindex).css({"opacity":"1"}).siblings().css({"opacity":"0"});
 			ifbar();
@@ -42,7 +43,7 @@
 	function placego(type){ 
 		switch (type){
 			case "h":
-				xq_slide_in.css({"transform":"translateX(-"+100/total*curindex+"%)"});
+				xq_slide_in.css({"transform":"translateX(-"+liwidth*curindex+"px)"});
 				break;
 			case "v":
 				xq_slide_in.css({"transform":"translateY(-"+height*curindex+"px)"});
@@ -53,6 +54,53 @@
 		}
 		ifbar();
 	}
+	function openmb($self,type){
+		var startX;
+		var startY;
+		var czX;
+		$self[0].addEventListener("touchstart",function(event){
+			clearInterval(time);
+			var e=event || window.event;
+			startX=e.touches[0].clientX;
+			startY=e.touches[0].clientY;
+		});
+		$self[0].addEventListener("touchmove",function(event){
+			var e=event || window.event;
+			var curX=e.touches[0].clientX;
+			var curY=e.touches[0].clientY;
+			czX=startX-curX;
+			czY=startY-curY;
+			switch (type){
+				case "h":
+					xq_slide_in.css({"transition":"none","transform":"translateX(-"+(liwidth*curindex+czX)+"px)"});
+					break;
+				case "v":
+					xq_slide_in.css({"transition":"none","transform":"translateY(-"+(height*curindex+czY)+"px)"});
+					break;
+			}
+		})
+		$self[0].addEventListener("touchend",function(event){
+			switch (type){
+				case "v":
+					if(czY > 0 && curindex<(total-1)){
+						curindex++;
+					}else if(czY < 0 && curindex>=1){
+						curindex--;
+					}
+					break;
+				default:
+					if(czX > 0 && curindex<(total-1)){
+						curindex++;
+					}else if(czX < 0 && curindex>=1){
+						curindex--;
+					}
+				break;
+			}
+			xq_slide_in.css({"transition":"transform 1s ease"});
+			placego(type);
+			slide(type);
+		});
+	}
 	$.fn.xq_slide=function(options){
 		self=$(this);
 		var defaults={
@@ -61,7 +109,8 @@
 			choseBtn:true,//是否显示上下切换按钮
 			speed:1000,//动画间隔的时间，以毫秒为单位。
 			mousestop:true,//当鼠标移上去是否停止循环
-			showbar:true//是否显示轮播导航
+			showbar:true,//是否显示轮播导航
+			openmb:true//是否开启移动端支持
 		}
 		$.extend(defaults,options);
 		speed=defaults.speed;
@@ -88,6 +137,7 @@
 			});
 		}
 		initCss(defaults.type);
+		liwidth=xq_slide_in.find("li").width();
 		if(defaults.mousestop){
 			self.on('mousemove',function(){
 				clearInterval(time);
@@ -109,6 +159,9 @@
 				placego(defaults.type);
 				slide(defaults.type);
 			});
+		}
+		if(defaults.openmb){
+			openmb(self,defaults.type);
 		}
 	}
 })(jQuery);
