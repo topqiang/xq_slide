@@ -18,7 +18,6 @@
 }
 .xq_slide_in li{
 	height: 100%;
-	transition: all 1s ease;
 }
 .xq_slide_in li img{
 	width: 100%;

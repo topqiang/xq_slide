@@ -149,7 +149,7 @@
 			});
 		}
 		initCss(defaults.type);
-		liwidth=$("body").width();
+		liwidth=xq_slide_in.find("li").width();
 		if(defaults.mousestop){
 			self.on('mousemove',function(){
 				clearInterval(time);
