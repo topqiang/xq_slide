@@ -19,6 +19,11 @@
 .xq_slide_in li{
 	height: 100%;
 }
+.xq_slide_in li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
 .xq_slide_in li img{
 	width: 100%;
 	height: 100%;

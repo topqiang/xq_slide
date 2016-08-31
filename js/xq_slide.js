@@ -58,13 +58,12 @@
 		var startX;
 		var startY;
 		var czX;
+		var czY;
 		$self[0].addEventListener("touchstart",function(event){
 			clearInterval(time);
 			var e=event || window.event;
 			startX=e.touches[0].clientX;
 			startY=e.touches[0].clientY;
-			e.preventDefault();
-			e.stopPropagation();
 		});
 		$self[0].addEventListener("touchmove",function(event){
 			var e=event || window.event;
@@ -80,22 +79,20 @@
 					xq_slide_in.css({"transition":"transform 0s ease","transform":"translateY(-"+(height*curindex+czY)+"px)"});
 					break;
 			}
-			e.preventDefault();
-			e.stopPropagation();
 		})
 		$self[0].addEventListener("touchend",function(event){
 			switch (type){
 				case "v":
-					if(czY > 0){
+					if(czY > 25){
 						curindex++;
-					}else if(czY < 0){
+					}else if(czY < -25){
 						curindex--;
 					}
 					break;
 				default:
-					if(czX > 0){
+					if(czX > 25){
 						curindex++;
-					}else if(czX < 0){
+					}else if(czX < -25){
 						curindex--;
 					}
 				break;
@@ -109,8 +106,8 @@
 			xq_slide_in.css({"transition":"transform 1s ease"});
 			placego(type);
 			slide(type);
-			event.preventDefault();
-			event.stopPropagation();
+			czX=0;
+			czY=0;
 		});
 	}
 	$.fn.xq_slide=function(options){
