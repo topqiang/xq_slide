@@ -40,7 +40,7 @@
 		}
 		slide(type);
 	}
-	function placego(type){ 
+	function placego(type){
 		switch (type){
 			case "h":
 				xq_slide_in.css({"transform":"translateX(-"+liwidth*curindex+"px)"});
@@ -149,7 +149,7 @@
 			});
 		}
 		initCss(defaults.type);
-		liwidth=xq_slide_in.find("li").width();
+		liwidth=$("body").width();
 		if(defaults.mousestop){
 			self.on('mousemove',function(){
 				clearInterval(time);
