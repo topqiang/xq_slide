@@ -73,10 +73,10 @@
 			czY=startY-curY;
 			switch (type){
 				case "h":
-					xq_slide_in.css({"transition":"transform 0s ease","transform":"translateX(-"+(liwidth*curindex+czX)+"px)"});
+					xq_slide_in.css({"transition":"transform 0s","transform":"translateX(-"+(liwidth*curindex+czX)+"px)"});
 					break;
 				case "v":
-					xq_slide_in.css({"transition":"transform 0s ease","transform":"translateY(-"+(height*curindex+czY)+"px)"});
+					xq_slide_in.css({"transition":"transform 0s","transform":"translateY(-"+(height*curindex+czY)+"px)"});
 					break;
 			}
 		})
