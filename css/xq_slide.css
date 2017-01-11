@@ -76,3 +76,11 @@
 	transform: scale(1.5);
 	background: #fff;
 }
+.xq_slide_bar .vatical{
+    color: #fff;
+    width: 100%;
+    padding-left: 10px;
+    float: left;
+    text-align: left;
+}
+

@@ -12,6 +12,10 @@
 		if(showbar){
 			$(".xq_slide_bar span").eq(curindex).addClass("cur").siblings(".cur").removeClass("cur");
 		}
+		var text = xq_slide_in.find('li').eq(curindex).find('p').text();
+		if (text) {
+			$(".xq_slide_bar .vatical").text(text);
+		}
 	}
 	function slide(type){
 		time=setInterval(function(){
@@ -156,11 +160,15 @@
 		}
 		if(defaults.showbar){
 			showbar=defaults.showbar;
-			var slidebar=""
+			var slidebar="";
 			for (var i=0;i<total;i++) {
 				slidebar+="<span></span>";
 			}
 			self.append("<div class='xq_slide_bar'>"+slidebar+"</div>");
+			if (defaults.vatical) {
+				var text = xq_slide_in.find('li').eq(0).find('p').text();
+				self.find('.xq_slide_bar').prepend("<div class='vatical'>"+text+"</div>");
+			}
 			ifbar();
 			$(".xq_slide_bar span").on('click',function(){
 				curindex=$(this).index();
