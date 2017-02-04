@@ -15,6 +15,8 @@
 		var text = xq_slide_in.find('li').eq(curindex).find('p').text();
 		if (text) {
 			$(".xq_slide_bar .vatical").text(text);
+		}else{
+			$(".xq_slide_bar .vatical").text(text);
 		}
 	}
 	function slide(type){
